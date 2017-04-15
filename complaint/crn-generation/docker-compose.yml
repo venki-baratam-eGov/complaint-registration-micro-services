@@ -1,0 +1,21 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.4
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypass
+  crngeneration:
+    image: crn-generation:latest
+    ports:
+      - "8888:8888"
+      - "9990:9990"
+    links:
+      - postgres:pghost
+    environment:
+      - DB_HOST=pghost
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass

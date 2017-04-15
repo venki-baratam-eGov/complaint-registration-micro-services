@@ -1,0 +1,20 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.4
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypass
+  location:
+    image: location:latest
+    ports:
+      - "8882:8882"
+    links:
+      - postgres:pghost
+    environment:
+      - DB_HOST=pghost
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass

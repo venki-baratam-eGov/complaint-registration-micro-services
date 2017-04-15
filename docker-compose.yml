@@ -1,0 +1,87 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.4
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypass
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    links:
+      - zookeeper:zk
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_CREATE_TOPICS: "complaint-validated-name:1:1,complaint-location-populated-name:1:1,complaint-employee-populated-name:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zk:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  complaintregistration:
+    image: complaint-registration:latest
+    ports:
+      - "8888:8888"
+    links:
+      - postgres:pghost
+      - kafka
+    environment:
+      - DB_HOST=pghost
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass
+  crngeneration:
+    image: crn-generation:latest
+    ports:
+      - "8881:8881"
+    links:
+      - postgres:pghost
+    environment:
+      - DB_HOST=pghost
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass
+  employee:
+    image: employee:latest
+    ports:
+      - "8883:8883"
+    links:
+      - postgres:pghost
+    environment:
+      - DB_HOST=pghost
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass
+  location:
+    image: location:latest
+    ports:
+      - "8882:8882"
+    links:
+      - postgres:pghost
+    environment:
+      - DB_HOST=pghost
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass
+  employeeenrichment:
+    image: employee-enrichment:latest
+    ports:
+      - "8884:8884"
+    links:
+      - kafka
+  locationenrichment:
+    image: location-enrichment:latest
+    ports:
+      - "8885:8885"
+    links:
+      - kafka
