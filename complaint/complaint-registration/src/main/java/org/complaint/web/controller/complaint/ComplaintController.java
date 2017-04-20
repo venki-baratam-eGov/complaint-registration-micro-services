@@ -39,6 +39,8 @@ public class ComplaintController {
 		ComplaintStatus status = new ComplaintStatus();
 		status.setName("PROCESSING");
 		complaint.setStatus(status);
+		
+		complaintService.push(complaint);
 
 		return new ResponseEntity<String>("Complaint created successfully," + "  and it is under processing......",
 				HttpStatus.OK);

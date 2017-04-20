@@ -86,6 +86,7 @@ public class Complaint extends AbstractAuditable {
 	public Complaint(org.complaint.web.contract.Complaint contractComplaint) {
 		this.setCrn(contractComplaint.getCrn());
 		this.setComplaintType(new ComplaintType());
+		this.getComplaintType().setId(contractComplaint.getComplaintType().getId());
 		this.getComplaintType().setCode(contractComplaint.getComplaintType().getCode());
 		this.setComplainant(new Complainant(contractComplaint.getComplainant()));
 		this.setLocation(contractComplaint.getLocation());

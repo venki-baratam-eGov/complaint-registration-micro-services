@@ -103,9 +103,8 @@ public class ComplaintService {
 
 	private void populateComplaintType(Complaint complaint) {
 
-		if (complaint.getComplaintType() != null && complaint.getComplaintType().getCode() != null
-				&& !complaint.getComplaintType().getCode().isEmpty())
-			complaint.setComplaintType(complaintTypeService.getByCode(complaint.getComplaintType().getCode()));
+		if (complaint.getComplaintType() != null && complaint.getComplaintType().getId() != null)
+			complaint.setComplaintType(complaintTypeService.getById(complaint.getComplaintType().getId()));
 
 	}
 

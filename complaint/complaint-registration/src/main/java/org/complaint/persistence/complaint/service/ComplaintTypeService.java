@@ -21,6 +21,11 @@ public class ComplaintTypeService {
 
 		return complaintTypeRepository.findByCode(code);
 	}
+	
+	public ComplaintType getById(Long id) {
+
+		return complaintTypeRepository.findOne(id);
+	}
 
 	public List<ComplaintType> getAll() {
 
