@@ -10,6 +10,9 @@ sudo docker build -t complaint-registration:latest .
 cd ../crn-generation/
 ./mvnw clean package
 sudo docker build -t crn-generation:latest .
+cd ../custom-crn-generation/
+./mvnw clean package
+sudo docker build -t custom-crn-generation:latest .
 cd ../employee-enrichment/
 ./mvnw clean package
 sudo docker build -t employee-enrichment:latest .
