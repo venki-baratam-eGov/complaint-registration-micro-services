@@ -25,6 +25,12 @@ public class ComplaintStatusController {
 		return getSuccessResponseForSearch(complaintStatusService.getAll());
 	}
 
+	@GetMapping("getForUpdate")
+	@ResponseBody
+	public ResponseEntity<?> getForUpdate() {
+		return getSuccessResponseForSearch(complaintStatusService.getForUpdate());
+	}
+
 	public ResponseEntity<?> getSuccessResponseForSearch(List<ComplaintStatus> complaintStatuss) {
 		return new ResponseEntity<List<ComplaintStatus>>(complaintStatuss, HttpStatus.OK);
 	}

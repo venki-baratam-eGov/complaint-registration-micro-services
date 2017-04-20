@@ -26,5 +26,10 @@ public class BoundaryService {
 
 		return boundaryRepository.findAll();
 	}
+	
+	public Boundary getById(Long id) {
+
+		return boundaryRepository.findOne(id);
+	}
 
 }

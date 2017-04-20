@@ -1,5 +1,4 @@
 
-
 package org.employee.persistence.service;
 
 import java.util.List;
@@ -27,4 +26,8 @@ public class DepartmentService {
 		return departmentRepository.findAll();
 	}
 
+	public Department getById(Long id) {
+
+		return departmentRepository.findOne(id);
+	}
 }

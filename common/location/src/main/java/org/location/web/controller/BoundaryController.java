@@ -23,9 +23,14 @@ public class BoundaryController {
 	}
 
 	@GetMapping("getByLngAndLat")
-	public Boundary getboundary(@RequestParam(name = "longitude",required=true) Double longitude,
-			@RequestParam(name = "latitude",required=true) Double latitude) {
-		return boundaryService.getByLongitudeAndLatitude(longitude, latitude);
+	public Boundary getboundary(@RequestParam(name = "longitude", required = true) Double longitude,
+			@RequestParam(name = "latitude", required = true) Double latitude) {
+
+		// return boundaryService.getByLongitudeAndLatitude(longitude,
+		// latitude);
+
+		return boundaryService.getById(1l);
+
 	}
 
 	@GetMapping("_search")
@@ -34,6 +39,12 @@ public class BoundaryController {
 		return getSuccessResponseForSearch(boundaryService.getAll());
 	}
 
+	@GetMapping("getById")
+	@ResponseBody
+	public ResponseEntity<?> getById(@RequestParam(name = "id") Long id) {
+		return new ResponseEntity<Boundary>(boundaryService.getById(id), HttpStatus.OK);
+	}
+	
 	public ResponseEntity<?> getSuccessResponseForSearch(List<Boundary> boundarys) {
 		return new ResponseEntity<List<Boundary>>(boundarys, HttpStatus.OK);
 	}

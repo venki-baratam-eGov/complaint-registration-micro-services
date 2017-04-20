@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "complaintstatus_write")
+@Entity
 @Table(name = "complaintstatus")
 @SequenceGenerator(name = ComplaintStatus.SEQ_COMPLAINTSTATUS, sequenceName = ComplaintStatus.SEQ_COMPLAINTSTATUS, allocationSize = 1)
 public class ComplaintStatus extends AbstractPersistable<Long> {

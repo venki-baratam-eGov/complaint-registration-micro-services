@@ -1,5 +1,4 @@
 
-
 package org.complaint.persistence.complaint.service;
 
 import java.util.Date;
@@ -38,6 +37,11 @@ public class ComplaintService {
 
 	@Autowired
 	private ComplaintValidatedProducer complaintValidatedProducer;
+
+	public Complaint getById(Long id) {
+
+		return complaintRepository.findOne(id);
+	}
 
 	public List<Complaint> getAll() {
 
